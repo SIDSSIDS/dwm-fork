@@ -1,34 +1,32 @@
 #!/bin/bash
 
+source $(dirname $0)/colors
+
 action="$1"
 
 powerOn=$(acpi -b | egrep "(Charging|Not charging)" | wc -l)
 percent=$(acpi -b | awk -F ', ' '{print $2}' | egrep -o '[0-9]*')
 timeleft=$(acpi -b | awk -F ', ' '{print $3}' | egrep -o '[0-9]{2}:[0-9]{2}')
 
-colGreen="#4caf50"
-colYellow="#ffeb3b"
-colRed="#f44336"
-
 if   (( percent >= 90 )); then
     powerSym=''
-    powerCol=$colYellow
+    powerCol=$colYellow500
 elif (( percent >= 60 )) && (( percent < 90 )); then
     powerSym=''
-    powerCol=$colYellow
+    powerCol=$colYellow500
 elif (( percent >= 35 )) && (( percent < 60 )); then
     powerSym=''
-    powerCol=$colYellow
+    powerCol=$colYellow500
 elif (( percent >= 10 )) && (( percent < 35 )); then
     powerSym=''
-    powerCol=$colYellow
+    powerCol=$colYellow500
 else
     powerSym=''
-    powerCol=$colRed
+    powerCol=$colRed500
 fi
 
 if [[ "$powerOn" == "1" ]]; then
-    powerCol=$colGreen
+    powerCol=$colGreen500
 fi
 
 case "$action" in

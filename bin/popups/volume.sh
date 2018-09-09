@@ -1,14 +1,12 @@
 #!/bin/bash
 
+source $(dirname $0)/../colors
+
 level=$(pamixer --get-volume)
 muted=$(pamixer --get-mute)
 
 FontAwesome="^fn(FontAwesome5Free-32:style=Solid)"
 DefFont="^fn()"
-
-colGreen500="#4caf50"
-colRed500="#f44336"
-colYellow500="#ffeb3b"
 
 mute_sym=""
 vol_sym=""

@@ -3,14 +3,12 @@
 # xbacklight -ctrl asus::kbd_backlight -get
 # xbacklight -get
 
+source $(dirname $0)/../colors
+
 level=$(xbacklight -get)
 
 FontAwesome="^fn(FontAwesome5Free-32:style=Solid)"
 DefFont="^fn()"
-
-colGreen500="#4caf50"
-colRed500="#f44336"
-colYellow500="#ffeb3b"
 
 light_sym=""
 

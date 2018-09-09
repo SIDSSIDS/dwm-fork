@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source $(dirname $0)/../colors
+
 message=$1
 WIDTH=$2
 HEIGHT=$3
@@ -29,7 +31,7 @@ font="-*-fixed-medium-*-*-*-32-*-*-*-*-*-*-*"
 
 parameters="  -p $timeout"
 parameters+=" -fn $font"
-parameters+=" -bg #222222"
+parameters+=" -bg $colGrayBG"
 parameters+=" -x $xpos -y $ypos -w $WIDTH -h $HEIGHT"
 
 #parameters+=" -title-name dzenpopup"

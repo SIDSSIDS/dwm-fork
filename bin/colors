@@ -1,0 +1,17 @@
+#!/bin/bash
+
+colWhite='#ffffff'
+colBlack='#000000'
+
+colGrayFG='#bbbbbb'
+colGrayBG='#222222'
+
+colRed500='#f44336'
+colYellow500='#ffeb3b'
+colBlue500='#2196f3'
+colGrey500='#9e9e9e'
+colGreen500='#4caf50'
+colPink500='#e91e63'
+colOrange500='#ff9800'
+colIndigo500='#3f51b5'
+colCyan500='#00bcd4'

@@ -1,11 +1,10 @@
 #!/bin/bash
 
+source $(dirname $0)/../colors
+
 state=$($(dirname $0)/../touchpad state)
 
 FontAwesome="^fn(FontAwesome5Free-74:style=Solid)"
-
-colGreen500="#4caf50"
-colRed500="#f44336"
 
 on_sym=""
 off_sym=""

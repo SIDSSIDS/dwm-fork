@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source $(dirname $0)/../colors
+
 generated_output_top() {
     DIR=$(dirname "$0")
     conky -c ${DIR}/config_top.lua
@@ -17,9 +19,9 @@ width=900
 height=21
 xpos=-$width
 ypos=0
-fgcolor="#ffffff"
-#bgcolor="#ff0000"
-bgcolor="#222222"
+fgcolor="$colWhite"
+#bgcolor="$colRed500"
+bgcolor="$colGrayBG"
 font="Liberation Mono:pixelsize=14:antialias=true:autohint=true"
 
 parameters="  -h $height" 
