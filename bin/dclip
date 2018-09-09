@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# dclip-1.2 || Delta 05ene09
+
+file=$HOME/.dclip_cache
+size=10
+action="$1"
+
+if [ "$action" == "copy" ]; then
+    sel_clip=$(xclip -o)
+    sel_file=$(echo -n "$sel_clip"|tr '\n' '\034')
+fi
+touch $file 
+if [ "$action" == "paste" ] || [ "$action" == "paste_and_click" ]; then 
+    paste="true"
+    shift 
+    sel_file=$(cat $file | dmenu ${1+"$@"}) 
+    sel_clip=$(echo -n "$sel_file"|tr '\034' '\n')
+fi
+[ "$sel_clip" == "" ] && exit 1
+
+cut=$(head -n $(($size-1)) $file)
+echo "$sel_file" > $file
+echo -n "${cut//"$sel_file"/}" | sed '/^$/d' >> $file
+
+echo -n "$sel_clip" | xclip -selection primary -i
+echo -n "$sel_clip" | xclip -selection clipboard -i
+
+if [ "$action" == "paste_and_click" ]; then 
+    xdotool click 2
+fi
+
+exit 0

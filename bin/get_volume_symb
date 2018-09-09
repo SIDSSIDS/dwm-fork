@@ -1,0 +1,21 @@
+#!/bin/bash
+
+muted=$(pamixer --get-mute)
+
+if [[ "$1" == "sym" ]]
+then
+    if [[ "$muted" == "true" ]]
+    then
+        echo -n ""
+    else
+        echo -n ""
+    fi
+else
+    if [[ "$muted" == "true" ]]
+    then
+        echo -n "#f44336"
+    else
+        echo -n "#ffeb3b"
+    fi
+fi
+

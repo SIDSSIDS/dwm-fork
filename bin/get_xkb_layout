@@ -1,0 +1,11 @@
+#!/bin/bash
+
+code=$(xset -q | grep LED | egrep -o 'LED mask: +[0-9]+' | egrep -o '[0-9]+')
+
+if [[ "${code:4:1}" == "0" ]]; then
+    echo -n "us"
+elif [[ "${code:4:1}" == "1" ]]; then
+    echo -n "ru"
+else
+    echo -n "??"
+fi

@@ -1,0 +1,66 @@
+#!/bin/bash
+
+track_file="/home/sids/work/timetrack"
+
+awk_date_pattern="\"%d.%m.%Y %a\""
+awk_time_pattern="\"%H:%M:%S\""
+today_fg_color="#4caf50"
+
+last_line=$(tail -1 $track_file)
+last_action=$(echo $last_line | awk -F ' ' '{print $1}')
+last_timestamp=$(echo $last_line | awk -F ' ' '{print $2}')
+
+get_worktime_info() {
+        gawk '
+    function count_session_time(st,sp) {
+        date=strftime('"$awk_date_pattern"', st)
+        a[date] += sp - st
+    }
+    {
+        $1 == "start" ? start=$2 : stop=$2;
+        if (start == "" && stop != "") {
+            stop="";
+        }
+        if (start != "" && stop != "") {
+            count_session_time(start,stop)
+            start=""; stop="";
+        }
+    }
+    END {
+        if (start != "") {
+            count_session_time(start,systime())
+        }
+        curdate=strftime('"$awk_date_pattern"', systime())
+        curweekday=strftime("%a", systime())
+        for (i in a) {
+            if (curdate == i) {
+                print "today      " curweekday " ^fg('"$today_fg_color"')" strftime('"$awk_time_pattern"', a[i], 1) "^fg()"
+            }
+            else {
+                print i " " strftime('"$awk_time_pattern"', a[i], 1)
+            }
+        }
+    }' $track_file | head -10 | sort -r
+}
+
+
+if [[ "$1" == "status" ]]; then
+    echo $last_action
+    exit 0
+fi
+
+if [[ "$1" == "time" ]]; then
+    if [[ "$last_action" == "start" ]]; then
+        ps -f | grep "dzen-worktime" | grep -v "grep" | awk '{print "kill " $2}' | sh
+        get_worktime_info | dzen2 -fn "Liberation Mono:pixelsize=16:antialias=true:autohint=true" -fg "#bbbbbb" -bg "#222222" -p 5 -x "1280" -y "25" -l "9" -sa 'c' -w "230" -h "18" -ta 'c' -e 'onstart=uncollapse;button1=exit;button3=exit' -title-name "dzen-worktime"
+    fi
+    exit 0
+fi
+
+if [[ "$last_action" == "start" ]]; then
+    action="stop"
+else
+    action="start"
+fi
+
+echo "$action $(date +%s)" >> $track_file

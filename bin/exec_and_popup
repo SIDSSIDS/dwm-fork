@@ -1,0 +1,5 @@
+#!/bin/bash
+
+eval $1
+
+$(dirname $0)/popups/$2
