@@ -15,7 +15,7 @@ screenH=$(xdpyinfo | grep dimensions | egrep -o "[0-9]+x[0-9]+ pixels" | egrep -
 
 case "$x_align" in
     "left"   ) xpos=0                                           ;;
-    "middle" ) xpos=$(( $screenW/2 - $WIDTH/2 ))                ;;
+    "middle" ) xpos=$(( $screenW/4 - $WIDTH/2 ))                ;;
     "right"  ) xpos=$(( $screenW   - $WIDTH   ))                ;;
     *        ) echo "Unknown x_align value: $x_align" && exit 1 ;;
 esac

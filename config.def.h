@@ -31,14 +31,14 @@ static const Rule rules[] = {
 	 */
 	/* class              instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",             NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",          NULL,       NULL,       1 << 1,       0,           -1 },
-	{ "Chromium",         NULL,       NULL,       1 << 1,       0,           -1 },
-	{ "Opera",            NULL,       NULL,       1 << 1,       0,           -1 },
-	{ "NetBeans",         NULL,       NULL,       1 << 3,       0,           -1 },
-	{ "Slack",            NULL,       NULL,       1 << 2,       0,           -1 },
-	{ "vlc",              NULL,       NULL,       0,            1,           -1 },
+	{ "Firefox",          NULL,       NULL,       1 << 1,       0,            1 },
+	{ "Chromium",         NULL,       NULL,       1 << 1,       0,            1 },
+	{ "Opera",            NULL,       NULL,       1 << 1,       0,            1 },
+	{ "NetBeans",         NULL,       NULL,       1 << 3,       0,            0 },
+	{ "Slack",            NULL,       NULL,       1 << 2,       0,            1 },
+	{ "vlc",              NULL,       NULL,       0,            1,            1 },
 	{ "Gnome-calculator", NULL,       NULL,       0,            1,           -1 },
-	{ "Gnome-calendar", NULL,       NULL,       0,            1,           -1 },
+	{ "Gnome-calendar",   NULL,       NULL,       0,            1,           -1 },
 	{ "Steam",            NULL,       NULL,       0,            1,           -1 },
 };
 
@@ -70,15 +70,10 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[]        = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]         = { "st", NULL };
 static const char *slockcmd[]        = { "slock", NULL };
-static const char *brightdown[]      = { "/home/sids/distributives/dwm/dwm-git/src/dwm/bin/exec_and_popup", "xbacklight -dec 10", "backlight.sh" };
-static const char *brightup[]        = { "/home/sids/distributives/dwm/dwm-git/src/dwm/bin/exec_and_popup", "xbacklight -inc 10", "backlight.sh" };
-static const char *kbdleddown[]      = { "/home/sids/distributives/dwm/dwm-git/src/dwm/bin/exec_and_popup", "xbacklight -ctrl asus::kbd_backlight -dec 30", "kbd_backlight.sh" };
-static const char *kbdledup[]        = { "/home/sids/distributives/dwm/dwm-git/src/dwm/bin/exec_and_popup", "xbacklight -ctrl asus::kbd_backlight -inc 30", "kbd_backlight.sh" };
-static const char *toggle_touchpad[] = { "/home/sids/distributives/dwm/dwm-git/src/dwm/bin/exec_and_popup", "/home/sids/distributives/dwm/dwm-git/src/dwm/bin/touchpad toggle", "touchpad.sh" };
-static const char *volume_mute[]     = { "/home/sids/distributives/dwm/dwm-git/src/dwm/bin/exec_and_popup", "pamixer -t",      "volume.sh" };
-static const char *volume_increase[] = { "/home/sids/distributives/dwm/dwm-git/src/dwm/bin/exec_and_popup", "pamixer -i 5 -u", "volume.sh" };
-static const char *volume_decrease[] = { "/home/sids/distributives/dwm/dwm-git/src/dwm/bin/exec_and_popup", "pamixer -d 5",    "volume.sh" };
-static const char *toggle_work[]     = { "/home/sids/distributives/dwm/dwm-git/src/dwm/bin/toggle_work"};
+static const char *volume_mute[]     = { "/home/sids/distrs/dwm/dwm-git/src/dwm/bin/exec_and_popup", "pamixer -t",      "volume.sh" };
+static const char *volume_increase[] = { "/home/sids/distrs/dwm/dwm-git/src/dwm/bin/exec_and_popup", "pamixer -i 5 -u", "volume.sh" };
+static const char *volume_decrease[] = { "/home/sids/distrs/dwm/dwm-git/src/dwm/bin/exec_and_popup", "pamixer -d 5",    "volume.sh" };
+static const char *toggle_work[]     = { "/home/sids/distrs/dwm/dwm-git/src/dwm/bin/toggle_work"};
 static const char *dclipcmd_paste[]  = { "dclip", "paste", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan , "-sf", col_gray4, NULL };
 static const char *dclipcmd_paste2[] = { "dclip", "paste_and_click", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan , "-sf", col_gray4, NULL };
 
@@ -119,14 +114,9 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                                       7)
 	TAGKEYS(                        XK_9,                                       8)
 	{ MODKEY|ShiftMask,             XK_q,                       quit,           {0} },
-	{ 0,                            XF86XK_KbdBrightnessDown,   spawn,          {.v = kbdleddown } },
-	{ 0,                            XF86XK_KbdBrightnessUp,     spawn,          {.v = kbdledup   } },
-	{ 0,                            XF86XK_MonBrightnessDown,   spawn,          {.v = brightdown } },
-	{ 0,                            XF86XK_MonBrightnessUp,     spawn,          {.v = brightup   } },
-	{ 0,                            XF86XK_TouchpadToggle,      spawn,          {.v = toggle_touchpad } },
-	{ 0,                            XF86XK_AudioLowerVolume,    spawn,          {.v = volume_decrease } },
-	{ 0,                            XF86XK_AudioMute,           spawn,          {.v = volume_mute } },
-	{ 0,                            XF86XK_AudioRaiseVolume,    spawn,          {.v = volume_increase } },
+	{ MODKEY,                       XK_F10,                     spawn,          {.v = volume_decrease } },
+	{ MODKEY,                       XK_F12,                     spawn,          {.v = volume_mute } },
+	{ MODKEY,                       XK_F11,                     spawn,          {.v = volume_increase } },
         { MODKEY|ControlMask,           XK_c,                       spawn,          SHCMD("exec dclip copy") },
         { MODKEY|ControlMask,           XK_x,                       spawn,          {.v = dclipcmd_paste } },
         { MODKEY|ControlMask,           XK_v,                       spawn,          {.v = dclipcmd_paste2 } },

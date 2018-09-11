@@ -17,7 +17,7 @@ generated_output_bottom() {
 
 width=900
 height=21
-xpos=-$width
+xpos=$((-1680-$width))
 ypos=0
 fgcolor="$colWhite"
 #bgcolor="$colRed500"
@@ -35,8 +35,8 @@ parameters+=" -title-name dzentop"
 pkill dzen2
 
 # execute dzen
-generated_output_top    | dzen2 $parameters -x $xpos -w $width -y 0 -fn "$font" &
-generated_output_bottom | dzen2 $parameters -x 0 -y -21 -fn "$font" &
+generated_output_top    | dzen2 $parameters -x $xpos -w $width -y 0   -fn "$font" &
+generated_output_bottom | dzen2 $parameters -w 1680  -y -21 -fn "$font" &
 
 
 

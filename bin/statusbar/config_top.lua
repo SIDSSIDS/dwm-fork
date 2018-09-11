@@ -9,7 +9,7 @@ conky.config = {
 	out_to_console = true,
     short_units = true,
     update_interval = 1,
-	lua_load = '/home/sids/distributives/dwm/dwm-git/src/dwm/bin/statusbar/script.lua'
+	lua_load = '/home/sids/distrs/dwm/dwm-git/src/dwm/bin/statusbar/script.lua'
 }
 
 conky.text = [[${lua conky_top_text}]]
