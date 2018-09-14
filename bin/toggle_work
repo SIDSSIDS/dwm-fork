@@ -45,6 +45,7 @@ get_worktime_info() {
     }' $track_file | head -10 | sort -r
 }
 
+titleName="dzen-worktime"
 
 if [[ "$1" == "status" ]]; then
     echo $last_action
@@ -53,8 +54,8 @@ fi
 
 if [[ "$1" == "time" ]]; then
     if [[ "$last_action" == "start" ]]; then
-        ps -f | grep "dzen-worktime" | grep -v "grep" | awk '{print "kill " $2}' | sh
-        get_worktime_info | dzen2 -fn "Liberation Mono:pixelsize=16:antialias=true:autohint=true" -fg "$colGrayFG" -bg "$colGrayBG" -p 5 -x "1280" -y "25" -l "9" -sa 'c' -w "230" -h "18" -ta 'c' -e 'onstart=uncollapse;button1=exit;button3=exit' -title-name "dzen-worktime"
+        pkill -f "dzen2 -title-name $titleName"
+        get_worktime_info | dzen2 -title-name "$titleName" -fn "Liberation Mono:pixelsize=16:antialias=true:autohint=true" -fg "$colGrayFG" -bg "$colGrayBG" -p 5 -x "-650" -y "21" -l "9" -sa 'c' -w "230" -h "18" -ta 'c' -e 'onstart=uncollapse;button1=exit;button3=exit'
     fi
     exit 0
 fi
