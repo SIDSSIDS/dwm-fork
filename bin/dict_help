@@ -3,6 +3,9 @@
 
 selection=$(xclip -o)
 translation=$(sdcv -01n "$selection")
+header=$(echo "$translation" | head -5)
+body=$(echo "$translation" | tail -n +6 | tr '\n' ' ' | sed 's/<br>/\n/g; s/\([0-9]\+)\)/\n  \1/g' | sed -r 's/(.{70})/\1\n/g')
+translation=$(echo "$header"; echo "$body")
 
 read -r -a mon <<< "$(xdotool getdisplaygeometry)"
 mon_w=${mon[0]}
@@ -16,7 +19,7 @@ else
     lines=$size
 fi
 
-width=750
+width=700
 height=21
 xpos=-$width
 ypos=$(( $mon_h / 2 - ($lines + 1)*$height / 2 ))
