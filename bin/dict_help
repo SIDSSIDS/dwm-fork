@@ -21,7 +21,7 @@ fi
 
 width=700
 height=21
-xpos=-$width
+xpos=$((-$width-1680))
 ypos=$(( $mon_h / 2 - ($lines + 1)*$height / 2 ))
 
 if (( $xpos + $width > $mon_w )); then

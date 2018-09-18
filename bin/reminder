@@ -125,7 +125,7 @@ if [[ "$show_window" == "true" ]]; then
         echo "$dzen_out" | dzen2 -title-name "$title_name" \
                                  -p \
                                  -l "$((lines-1))" \
-                                 -x "$((-$width - 1))" \
+                                 -x "$((-$width - 1 - 1680))" \
                                  -y "$(($height + 1))" \
                                  -w "$width" \
                                  -h "$height" \

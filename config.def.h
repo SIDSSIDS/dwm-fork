@@ -74,6 +74,7 @@ static const char *volume_mute[]     = { "/home/sids/distrs/dwm/dwm-git/src/dwm/
 static const char *volume_increase[] = { "/home/sids/distrs/dwm/dwm-git/src/dwm/bin/exec_and_popup", "pamixer -i 5 -u", "volume.sh" };
 static const char *volume_decrease[] = { "/home/sids/distrs/dwm/dwm-git/src/dwm/bin/exec_and_popup", "pamixer -d 5",    "volume.sh" };
 static const char *toggle_work[]     = { "/home/sids/distrs/dwm/dwm-git/src/dwm/bin/toggle_work"};
+static const char *dict_help[]       = { "/home/sids/distrs/dwm/dwm-git/src/dwm/bin/dict_help"};
 static const char *reminder_add[]    = { "/home/sids/distrs/dwm/dwm-git/src/dwm/bin/reminder", "add", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan , "-sf", col_gray4, NULL };
 static const char *dclipcmd_paste[]  = { "dclip", "paste", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan , "-sf", col_gray4, NULL };
 static const char *dclipcmd_paste2[] = { "dclip", "paste_and_click", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan , "-sf", col_gray4, NULL };
