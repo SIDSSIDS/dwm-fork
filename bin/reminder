@@ -1,0 +1,141 @@
+#!/bin/bash
+
+file="$HOME/.alarms"
+
+source $(dirname $0)/colors
+
+awk_datetime_pattern="\"%H:%M:%S %a %d.%m.%Y\""
+font_awesome='FontAwesome5Free-12:style=Solid'
+font="Liberation Mono:pixelsize=16:antialias=true:autohint=true"
+height=21
+width=500
+title_name="dzen-reminder"
+
+script_path="$(cd "$(dirname "$0")"; pwd -P)/$(basename "$0")"
+
+touch $file
+
+function kill_other_instances() {
+    pkill -f "dzen2 -title-name $title_name"
+}
+
+case "$1" in
+    "add")
+        shift 
+        type=$(printf "%s\n%s\n" "COUNTDOWN" "DATETIME" | dmenu -p "Choose type:" ${1+"$@"})
+
+        case "$type" in
+            "COUNTDOWN")
+                time=$(echo "0d 0h 0m 0s" | dmenu -p "Time:" ${1+"$@"})
+                if [[ "$time" != "" ]]; then
+                    seconds=$(echo "$time" | sed 's/s//g ; s/m/\*60/g ; s/h/\*3600/g ; s/d/\*86400/g ; s/ /+/g')
+                    seconds=$(($seconds))
+                    cur_sec=$(date +%s)
+                    final_date=$(( $cur_sec + $seconds ))
+                fi
+                ;;
+            "DATETIME")
+                time=$(date "+%Y-%m-%d %H:%M:%S" | dmenu -p "Date and time:" ${1+"$@"})
+                if [[ "$time" != "" ]]; then
+                    final_date=$(date --date "$time" +%s)
+                fi
+                ;;
+            *)
+                exit 1
+                ;;
+        esac
+
+        if [[ "x$final_date" != "x" ]]; then
+            text=$(echo "" | dmenu -p "Notes:" ${1+"$@"})
+            echo "$final_date|$text" >> $file
+            # if daemon is running and is sleeping, kill sleep command
+            pgrep -f "reminder daemon" | xargs pgrep "sleep" -P | xargs kill
+        fi
+        ;;
+    "active")
+        show_window="true"
+        sign=">"
+        ;;
+    "expired")
+        show_window="true"
+        sign="<="
+        ;;
+    "all")
+        show_window="true"
+        ;;
+    "delete")
+        sed -i "/$2|/d" "$file"
+        kill_other_instances
+        $($script_path $3)
+        ;;
+    "daemon")
+        while true; do
+            window_all_active=$(ps f --no-headers -C "reminder" | grep all | wc -l)
+            if [[ "$window_all_active" == "0" ]]; then
+                next_timestamp=$(cat $file | sort | head -1 | awk -F '|' '{ print $1 }')
+                if [[ "x$next_timestamp" != "x" ]]; then
+                    delta=$(( $next_timestamp - $(date +%s) ))
+                    if (( $delta > 0  )); then
+                        echo sleep "$delta"s
+                        sleep "$delta"s
+                    fi
+                    echo exec expired
+                    $($script_path expired)
+                else
+                    echo sleep 1d
+                    sleep 1d
+                fi
+            fi
+        done
+        ;;
+esac
+
+if [[ "$show_window" == "true" ]]; then
+    dzen_out=$(cat "$file" | sort | gawk -F "|" '
+    BEGIN{
+       prev_timestamp = -1
+    }
+    {
+       timestamp = $1
+       notes = $2
+       if ("'"$sign"'" == "" || timestamp '"$sign"' systime()) {
+           if (prev_timestamp != -1 && prev_timestamp <= systime() && timestamp > systime()) {
+               print "^p(+10)^fg('"$colYellow500"')^r('"$(($width-20))"'x2)^fg()"
+           } 
+           date=strftime('"$awk_datetime_pattern"', timestamp)
+           printf "%s", " ^fg('"$colRed500"')^fn('"$font_awesome"')^ca(1,'"$script_path"' delete " timestamp " '"$1"')[]^ca()^fn()^fg() " date " | ^fg('"$colGreen500"')"
+           n = split(notes, x, " ")
+           len = 28
+           for(i = 1; i <= n; i++) {
+               if (len + length(x[i]) >= 50) {
+                   printf "^fg()\n                            ^fg('"$colGreen500"')"
+                   len = 28
+               }
+               printf "%s ", x[i]
+               len += 1 + length(x[i])
+           }
+           printf "^fg()\n"
+           #print " ^fg('"$colRed500"')^fn('"$font_awesome"')^ca(1,'"$script_path"' delete " timestamp " '"$1"')[]^ca()^fn()^fg() " date " | ^fg('"$colGreen500"')" notes "^fg()"
+           prev_timestamp = timestamp
+       }
+    }')
+    if [[ "x$dzen_out" != "x" ]]; then
+        lines=$(echo "$dzen_out" | wc -l)
+        kill_other_instances
+        echo "$dzen_out" | dzen2 -title-name "$title_name" \
+                                 -p \
+                                 -l "$((lines-1))" \
+                                 -x "$((-$width - 1))" \
+                                 -y "$(($height + 1))" \
+                                 -w "$width" \
+                                 -h "$height" \
+                                 -ta 'l' \
+                                 -sa 'l' \
+                                 -fn "$font" \
+                                 -fg "$colGrayFG" \
+                                 -bg "$colGrayBG" \
+                                 -e 'onstart=uncollapse;button1=exit;button3=exit'
+    fi
+fi
+
+

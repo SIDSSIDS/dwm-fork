@@ -1,0 +1,67 @@
+#!/bin/bash
+
+
+selection=$(xclip -o)
+translation=$(sdcv -01n "$selection")
+header=$(echo "$translation" | head -5)
+body=$(echo "$translation" | tail -n +6 | tr '\n' ' ' | sed 's/<br>/\n/g; s/\([0-9]\+)\)/\n  \1/g' | sed -r 's/(.{70})/\1\n/g')
+translation=$(echo "$header"; echo "$body")
+
+read -r -a mon <<< "$(xdotool getdisplaygeometry)"
+mon_w=${mon[0]}
+mon_h=${mon[1]}
+
+size=$(echo "$translation" | wc -l)
+
+if (( $size > 20 )); then
+    lines=20
+else
+    lines=$size
+fi
+
+width=700
+height=21
+xpos=-$width
+ypos=$(( $mon_h / 2 - ($lines + 1)*$height / 2 ))
+
+if (( $xpos + $width > $mon_w )); then
+    echo too big
+fi
+
+events="\
+onstart=uncollapse,scrollhome,grabkeys;\
+enterslave=grabkeys;\
+leaveslave=ungrabkeys;\
+button1=exit;\
+button3=exit;\
+key_Up=scrollup;\
+key_Down=scrolldown;\
+key_PageUp=scrollup:10;\
+key_PageDown=scrolldown:10;\
+key_Home=scrollhome;\
+key_End=scrollend;\
+key_Escape=ungrabkeys,exit;\
+key_q=ungrabkeys,exit;\
+"
+
+font="Liberation Mono:pixelsize=16:antialias=true:autohint=true"
+defaultBg="#222222"
+defaultFg="#bbbbbb"
+
+echo "$translation" | dzen2 -p \
+                            -title-name "dict-help" \
+                            -fn "$font" \
+                            -fg "$defaultFg" \
+                            -bg "$defaultBg" \
+                            -x "$xpos" \
+                            -y "$ypos" \
+                            -w $width \
+                            -h $height \
+                            -l $lines \
+                            -ta 'c' \
+                            -sa 'l' \
+                            -e $events &
+
+sleep 1s
+
+xdotool search --name dict-help windowfocus

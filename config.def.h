@@ -74,6 +74,7 @@ static const char *volume_mute[]     = { "/home/sids/distrs/dwm/dwm-git/src/dwm/
 static const char *volume_increase[] = { "/home/sids/distrs/dwm/dwm-git/src/dwm/bin/exec_and_popup", "pamixer -i 5 -u", "volume.sh" };
 static const char *volume_decrease[] = { "/home/sids/distrs/dwm/dwm-git/src/dwm/bin/exec_and_popup", "pamixer -d 5",    "volume.sh" };
 static const char *toggle_work[]     = { "/home/sids/distrs/dwm/dwm-git/src/dwm/bin/toggle_work"};
+static const char *reminder_add[]    = { "/home/sids/distrs/dwm/dwm-git/src/dwm/bin/reminder", "add", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan , "-sf", col_gray4, NULL };
 static const char *dclipcmd_paste[]  = { "dclip", "paste", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan , "-sf", col_gray4, NULL };
 static const char *dclipcmd_paste2[] = { "dclip", "paste_and_click", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan , "-sf", col_gray4, NULL };
 
@@ -93,6 +94,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Tab,                     view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,                       killclient,     {0} },
 	{ MODKEY,                       XK_t,                       setlayout,      {.v = &layouts[0]} },
+        { MODKEY|ControlMask,           XK_t,                       spawn,          {.v = dict_help } },
 	{ MODKEY,                       XK_f,                       setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,                       setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,                   setlayout,      {0} },
@@ -121,6 +123,7 @@ static Key keys[] = {
         { MODKEY|ControlMask,           XK_x,                       spawn,          {.v = dclipcmd_paste } },
         { MODKEY|ControlMask,           XK_v,                       spawn,          {.v = dclipcmd_paste2 } },
         { MODKEY,                       XK_w,                       spawn,          {.v = toggle_work } },
+        { MODKEY,                       XK_r,                       spawn,          {.v = reminder_add } },
 };
 
 /* button definitions */
