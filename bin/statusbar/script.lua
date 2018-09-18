@@ -103,7 +103,7 @@ function conky_top_text()
     local dateText     = drawIcon('') .. ' ^ca(1,dzen-cal -a tr --y-indent 21 --x-indent 80)${time %a %d.%m.%Y}^ca()'
     
     -- time
-    local timeText     = drawIcon('') .. ' ${time %H:%M:%S}'
+    local timeText     = '^ca(1,'..binPath..'/reminder all)'..drawIcon('') .. '^ca() ${time %H:%M:%S}'
     
     -- volume
     local vol          = conky_parse('${exec pamixer --get-volume}')
