@@ -1,0 +1,4 @@
+
+1. Reminder
+ 1.1. check extra process creatition in case of deleting alarms
+ 1.2. If expired window is shown, then new alarms won't appear in the window
