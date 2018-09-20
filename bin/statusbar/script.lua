@@ -33,6 +33,27 @@ function codeInProgress()
     end
 end
 
+function formatBytes(bytes)
+    suffix = 'B'
+    if (bytes >= 1000) then
+        bytes = bytes / 1024
+        suffix = 'K'
+        if (bytes >= 1000) then
+            bytes = bytes / 1024
+            suffix = 'M'
+            if (bytes >= 1000) then
+                bytes = bytes / 1024
+                suffix = 'G'
+                if (bytes >= 1000) then
+                    bytes = bytes / 1024
+                    suffix = 'T'
+                end
+            end
+        end
+    end
+    return string.format("%6.2f%s", bytes, suffix);
+end
+
 function getNetText()
     local lanIcon      = drawIcon('')
     local downIcon     = drawIcon('')
@@ -40,8 +61,12 @@ function getNetText()
 
     local downspeed = conky_parse('${downspeed enp3s0}')
     local upspeed   = conky_parse('${upspeed enp3s0}')
-    local downtotal = conky_parse('${totaldown enp3s0}')
-    local uptotal   = conky_parse('${totalup enp3s0}')
+
+    local totaldownbytes = tonumber(conky_parse('${head /sys/class/net/enp3s0/statistics/rx_bytes 1 1}'))
+    local totalupbytes   = tonumber(conky_parse('${head /sys/class/net/enp3s0/statistics/tx_bytes 1 1}'))
+    local downtotal      = formatBytes(totaldownbytes)
+    local uptotal        = formatBytes(totalupbytes)
+
     netText = lanIcon..' '..string.format("%6s(%s)", upspeed, uptotal)..' '..upIcon..string.format(" %6s(%s)", downspeed, downtotal)..' '..downIcon
     return netText
 end
