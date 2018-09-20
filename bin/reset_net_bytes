@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [[ "x$1" == "x" ]]; then
+    cat /sys/class/net/enp3s0/statistics/rx_bytes > /home/sids/.enp3s0_rx_bytes
+    cat /sys/class/net/enp3s0/statistics/tx_bytes > /home/sids/.enp3s0_tx_bytes
+else
+    echo 0 > /home/sids/.enp3s0_rx_bytes
+    echo 0 > /home/sids/.enp3s0_tx_bytes
+fi
+

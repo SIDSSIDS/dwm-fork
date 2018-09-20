@@ -64,6 +64,17 @@ function getNetText()
 
     local totaldownbytes = tonumber(conky_parse('${head /sys/class/net/enp3s0/statistics/rx_bytes 1 1}'))
     local totalupbytes   = tonumber(conky_parse('${head /sys/class/net/enp3s0/statistics/tx_bytes 1 1}'))
+    local resetdownbytes = tonumber(conky_parse('${head /home/sids/.enp3s0_rx_bytes 1 1}'))
+    local resetupbytes   = tonumber(conky_parse('${head /home/sids/.enp3s0_tx_bytes 1 1}'))
+
+    if (resetdownbytes ~= nil and totaldownbytes >= resetdownbytes) then
+        totaldownbytes = totaldownbytes - resetdownbytes
+    end
+
+    if (resetupbytes ~= nil and totalupbytes >= resetupbytes) then
+        totalupbytes = totalupbytes - resetupbytes
+    end
+
     local downtotal      = formatBytes(totaldownbytes)
     local uptotal        = formatBytes(totalupbytes)
 

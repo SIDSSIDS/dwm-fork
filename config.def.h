@@ -75,6 +75,7 @@ static const char *volume_increase[] = { "/home/sids/distrs/dwm/dwm-git/src/dwm/
 static const char *volume_decrease[] = { "/home/sids/distrs/dwm/dwm-git/src/dwm/bin/exec_and_popup", "pamixer -d 5",    "volume.sh" };
 static const char *toggle_work[]     = { "/home/sids/distrs/dwm/dwm-git/src/dwm/bin/toggle_work"};
 static const char *dict_help[]       = { "/home/sids/distrs/dwm/dwm-git/src/dwm/bin/dict_help"};
+static const char *clear_net_bytes[] = { "/home/sids/distrs/dwm/dwm-git/src/dwm/bin/reset_net_bytes", NULL};
 static const char *reminder_add[]    = { "/home/sids/distrs/dwm/dwm-git/src/dwm/bin/reminder", "add", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan , "-sf", col_gray4, NULL };
 static const char *dclipcmd_paste[]  = { "dclip", "paste", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan , "-sf", col_gray4, NULL };
 static const char *dclipcmd_paste2[] = { "dclip", "paste_and_click", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan , "-sf", col_gray4, NULL };
@@ -125,6 +126,7 @@ static Key keys[] = {
         { MODKEY|ControlMask,           XK_v,                       spawn,          {.v = dclipcmd_paste2 } },
         { MODKEY,                       XK_w,                       spawn,          {.v = toggle_work } },
         { MODKEY,                       XK_r,                       spawn,          {.v = reminder_add } },
+        { MODKEY|ControlMask,           XK_r,                       spawn,          {.v = clear_net_bytes } },
 };
 
 /* button definitions */
