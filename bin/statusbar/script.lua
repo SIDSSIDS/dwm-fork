@@ -76,8 +76,6 @@ function getNetText()
 
       if (tun_int ~= nil and tun_int ~= '') then
           tun_icon = vpnIcon..' '
-          --tundowntotal = '('..conky_parse('${totaldown '..tun_int..'}')..')'
-          --tunuptotal   = '('..conky_parse('${totalup '..tun_int..'}')..')'
       end
 
       netText = tun_icon .. net_icon..' '
@@ -103,7 +101,7 @@ function conky_top_text()
     local dateText     = drawIcon('') .. ' ^ca(1,dzen-cal -a tr --y-indent 21 --x-indent 80)${time %a %d.%m.%Y}^ca()'
     
     -- time
-    local timeText     = '^ca(1,'..binPath..'/reminder all)'..drawIcon('') .. '^ca() ${time %H:%M:%S}'
+    local timeText     = '^ca(1,'..binPath..'/reminder all)'..drawIcon('') .. '^ca() ^ca(1,'..binPath..'/statusbar/clock.sh)${time %H:%M:%S}^ca()'
     
     -- volume
     local vol          = conky_parse('${exec pamixer --get-volume}')
@@ -131,4 +129,16 @@ function conky_top_text()
     local workText     = codeInProgress()
 
     return conky_parse(workText .. cpuText .. ' ' .. memText .. ' ' .. volText .. ' ' .. powText .. ' ' .. dateText .. ' ' .. timeText .. ' ' .. layText)
+end
+
+function printTime(title, timezone)
+    return string.format('^fg('..colYellow500..')%8s(${tztime %s %s})^fg(): ${tztime %s %s}', title, timezone, '%z', timezone, '%T ')
+end
+
+function conky_clock_text()
+
+    local mskTime = printTime("Moscow", "Europe/Moscow")
+    local thaTime = printTime("Thailand", "Asia/Bangkok")
+
+    return conky_parse(mskTime .. '\n' .. thaTime)
 end
