@@ -37,6 +37,7 @@ static const Rule rules[] = {
 	{ "NetBeans",         NULL,       NULL,       1 << 3,       0,           -1 },
 	{ "Slack",            NULL,       NULL,       1 << 2,       0,           -1 },
 	{ "Rocket.Chat",      NULL,       NULL,       1 << 2,       0,           -1 },
+	{ "Franz",            NULL,       NULL,       1 << 2,       0,           -1 },
 	{ "vlc",              NULL,       NULL,       0,            1,           -1 },
 	{ "Gnome-calculator", NULL,       NULL,       0,            1,           -1 },
 	{ "Gnome-calendar",   NULL,       NULL,       0,            1,           -1 },
