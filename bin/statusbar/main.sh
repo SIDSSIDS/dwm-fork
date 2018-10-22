@@ -19,8 +19,7 @@ width=900
 height=21
 xpos=-$width
 ypos=0
-fgcolor="$colGrayFG"
-#bgcolor="$colRed500"
+fgcolor="$colWhite"
 bgcolor="$colGrayBG"
 font="Liberation Mono:pixelsize=14:antialias=true:autohint=true"
 
