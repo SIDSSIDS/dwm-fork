@@ -135,7 +135,15 @@ function conky_top_text()
     local cpuText      = drawIcon('')..'^fn('..LiberBold..')'..string.format(" %2d%%", cpu)..'^fn()'
 
     -- keyboard layout
-    local layText      = '^fg('..bgGreen..')^fn('..PowerLine..')^bg('..bgGreen..')^fg('..fgGreen..')^fn('..LiberBold..') ${exec '..binPath..'/get_xkb_layout} ^fn()^fg()^bg()'
+    local lay          = conky_parse('${exec '..binPath..'/get_xkb_layout}')
+    if (lay == 'EN') then
+        bgCol = bgGreen
+        fgCol = fgGreen
+    else
+        bgCol = bgOrange
+        fgCol = fgOrange
+    end
+    local layText      = '^fg('..bgCol..')^fn('..PowerLine..')^bg('..bgCol..')^fg('..fgCol..')^fn('..LiberBold..') '..lay..' ^fn()^fg()^bg()'
 
     --working status
     local workText     = codeInProgress()
