@@ -35,6 +35,7 @@ generated_output | dzen2 -title-name "$titleName" \
                          -l "$((lines-1))" \
                          -sa 'r' \
                          -ta 'r' \
+                         -xs 1 \
                          -e 'onstart=uncollapse;button1=exit;button3=exit' &
 
 

@@ -34,8 +34,8 @@ parameters+=" -title-name dzentop"
 pkill dzen2
 
 # execute dzen
-generated_output_top    | dzen2 $parameters -x $xpos -w $width -y 0 -fn "$font" &
-generated_output_bottom | dzen2 $parameters -x 0 -y -21 -fn "$font" &
+generated_output_top    | dzen2 $parameters -x $xpos -w $width -y 0 -fn "$font" -xs 1 &
+generated_output_bottom | dzen2 $parameters -x 0 -y -21 -fn "$font" -xs 1 &
 
 
 
