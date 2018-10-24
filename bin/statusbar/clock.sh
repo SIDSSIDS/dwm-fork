@@ -11,10 +11,10 @@ generated_output() {
 # parameters
 
 titleName="dzen-clock"
-font="Liberation Mono:pixelsize=14:antialias=true:autohint=true"
-width=215
+font="Liberation Mono-14:style=Bold"
+width=153
 lines=2
-xpos=$(( -$width - 32))
+xpos=-$width
 ypos=21
 # ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----
 # MAIN
@@ -25,8 +25,8 @@ pkill -f "dzen2 -title-name $titleName"
 # execute dzen
 generated_output | dzen2 -title-name "$titleName" \
                          -fn "$font" \
-                         -fg "$colGrayFG" \
-                         -bg "$colGrayBG" \
+                         -fg "$colWhite" \
+                         -bg "#0087AF" \
                          -p \
                          -u \
                          -x "$xpos" \

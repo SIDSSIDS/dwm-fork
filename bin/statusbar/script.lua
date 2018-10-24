@@ -40,7 +40,7 @@ function codeInProgress()
     local codeIcon   = drawIcon('', colCyan500)
     local workStatus = conky_parse('${exec '..binPath..'/toggle_work status}')
     if (workStatus == 'start') then
-        return '^ca(1,'..binPath..'/toggle_work time)'..codeIcon..'^ca() '
+        return '^ca(1,'..binPath..'/toggle_work time)'..codeIcon..'^ca()'..sep()
     else
         return ''
     end
@@ -144,7 +144,7 @@ function conky_top_text()
 end
 
 function printTime(title, timezone)
-    return string.format('^fg('..colYellow500..')%8s(${tztime %s %s})^fg(): ${tztime %s %s}', title, timezone, '%z', timezone, '%T ')
+    return string.format('${tztime %s %s}^fg('..bgGreen..')^fn('..PowerLine..')^fn()^fg()^fg('..fgGreen..')^bg('..bgGreen..')%s ^bg()^fg()', timezone, '%T ', title)
 end
 
 function sep(col)
@@ -156,8 +156,8 @@ end
 
 function conky_clock_text()
 
-    local mskTime = printTime("Moscow", "Europe/Moscow")
-    local thaTime = printTime("Thailand", "Asia/Bangkok")
+    local mskTime = printTime("MSK", "Europe/Moscow")
+    local thaTime = printTime("THD", "Asia/Bangkok")
 
     return conky_parse(mskTime .. '\n' .. thaTime)
 end
