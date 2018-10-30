@@ -57,7 +57,7 @@ function getNetText()
     local tun_int    = conky_parse('${if_up tun0}tun0${endif}')
     local lan_int    = conky_parse('${if_existing /sys/class/net/enp3s0f1/operstate up}enp3s0f1${endif}')
     local wifi_int   = conky_parse('${if_existing /sys/class/net/wlp2s0/operstate up}wlp2s0${endif}')
-    local mobile_int = conky_parse('${if_up enp0s20f0u5}enp0s20f0u5${endif}')
+    local mobile_int = conky_parse('${if_up mobileusbmodem}mobileusbmodem${endif}')
     local net_icon   = ''
     local net_int    = ''
     local tun_icon   = ''
@@ -110,7 +110,7 @@ end
 function conky_top_text()
 
     -- date
-    local dateText     = '^fg('..bgBlue..')^fn('..PowerLine..')^fn()^fg()^bg('..bgBlue..') ' .. drawIcon('') .. ' ^ca(1,dzen-cal -a tr --y-indent 21 --x-indent 80)^fn('..LiberBold..')${time %a %d.%m.%Y}^fn()^ca()'
+    local dateText     = '^fg('..bgBlue..')^fn('..PowerLine..')^fn()^fg()^bg('..bgBlue..') ' .. drawIcon('') .. ' ^ca(1,dzen-cal -a tr --y-indent 21 --x-indent 153)^fn('..LiberBold..')${time %a %d.%m.%Y}^fn()^ca()'
     
     -- time
     local timeText     = '^ca(1,'..binPath..'/reminder all)'..drawIcon('') .. '^ca() ^ca(1,'..binPath..'/statusbar/clock.sh)^fn('..LiberBold..')${time %H:%M:%S}^fn()^ca()'
