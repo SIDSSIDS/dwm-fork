@@ -94,7 +94,7 @@ function getNetText()
           netText = '^fn('..LiberBold..')'..net_name..'^fn() '..netText
       end
       netText = '^fg('..bgBlue..')^fn('..PowerLine..')^fn()^fg()^bg('..bgBlue..') '..netText;
-      netText = '^fg('..bgGray..')^fn('..PowerLine..')^fn()^fg()^bg('..bgGray..') ^fn('..LiberBold..')^fg(\\#DD4000)'..string.format("%6s(%s)", upspeed, uptotal)..'^fg()^fn()'..'^fn('..LiberBold..')^fg('..colGreen500..')'..string.format("%6s(%s)", downspeed, downtotal)..'^fg()^fn() '..netText..tun_icon
+      netText = '^fg('..bgGray..')^fn('..PowerLine..')^fn()^fg()^bg('..bgGray..') ^fn('..LiberBold..')^fg(\\#740C05)'..string.format("%6s(%s)", upspeed, uptotal)..'^fg()^fn()'..'^fn('..LiberBold..')^fg(\\#22C65C)'..string.format("%6s(%s)", downspeed, downtotal)..'^fg()^fn() '..netText..tun_icon
     end
     return netText
 end
@@ -135,15 +135,33 @@ function conky_top_text()
     local cpuText      = drawIcon('')..'^fn('..LiberBold..')'..string.format(" %2d%%", cpu)..'^fn()'
 
     -- keyboard layout
-    local lay          = conky_parse('${exec '..binPath..'/get_xkb_layout}')
-    if (lay == 'EN') then
+    local code         = conky_parse('${exec '..binPath..'/get_xkb_layout}')
+    local layCode      = string.sub(code,1,1)
+    local capsCode     = string.sub(code,2,2)
+    local numCode      = string.sub(code,3,3)
+
+    local lay          = '??'
+    local num          = '^fn('..FontAwesome..')'
+
+    if (layCode == '0') then
+        lay = 'en'
         bgCol = bgGreen
         fgCol = fgGreen
     else
+        lay = 'ru'
         bgCol = bgOrange
         fgCol = fgOrange
     end
-    local layText      = '^fg('..bgCol..')^fn('..PowerLine..')^bg('..bgCol..')^fg('..fgCol..')^fn('..LiberBold..') '..lay..' ^fn()^fg()^bg()'
+
+    if (capsCode == '1') then
+        lay = string.upper(lay)
+    end
+
+    if (numCode == '1') then
+        num = '^fn('..FontAwesome..')'
+    end
+
+    local layText      = '^fg('..bgCol..')^fn('..PowerLine..')^bg('..bgCol..')^fg('..fgCol..')^fn('..LiberBold..') '..lay..' '..num..'^fn() ^fg()^bg()'
 
     --working status
     local workText     = codeInProgress()
@@ -152,7 +170,7 @@ function conky_top_text()
 end
 
 function printTime(title, timezone)
-    return string.format('${tztime %s %s}^fg('..bgGreen..')^fn('..PowerLine..')^fn()^fg()^fg('..fgGreen..')^bg('..bgGreen..')%s ^bg()^fg()', timezone, '%T ', title)
+    return string.format('${tztime %s %s}^fg('..bgGreen..')^fn('..PowerLine..')^fn()^fg()^fg('..fgGreen..')^bg('..bgGreen..') %s  ^bg()^fg()', timezone, '%T ', title)
 end
 
 function sep(col)

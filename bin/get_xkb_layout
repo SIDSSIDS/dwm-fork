@@ -2,10 +2,8 @@
 
 code=$(xset -q | grep LED | egrep -o 'LED mask: +[0-9]+' | egrep -o '[0-9]+')
 
-if [[ "${code:4:1}" == "0" ]]; then
-    echo -n "EN"
-elif [[ "${code:4:1}" == "1" ]]; then
-    echo -n "RU"
-else
-    echo -n "??"
-fi
+layout_code="${code:4:1}"
+capslock_on=$(( ${code:7:1} % 2 ))
+numlock_on=$((  ${code:7:1} / 2 ))
+
+echo -n "$layout_code$capslock_on$numlock_on"
