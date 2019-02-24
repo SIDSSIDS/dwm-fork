@@ -1,0 +1,24 @@
+#!/bin/bash
+
+notes_dir="$HOME/Documents/notes"
+cur_dir=$PWD
+
+cd $notes_dir
+
+filename=$((echo "New note"; ls -C1) | dmenu -p "Note:" ${1+"$@"})
+
+if [ $? -eq 0 ]
+then
+    if [[ "x$filename" = "xNew note"  ]]
+    then
+        filename=""
+    fi
+    st vim $filename
+    cd $cur_dir
+    exit 0;
+else
+    cd $cur_dir
+    exit 1;
+fi
+
+
