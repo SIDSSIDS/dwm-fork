@@ -4,7 +4,7 @@ source $(dirname $0)/colors
 
 track_file="/home/sids/work/timetrack"
 
-awk_date_pattern="\"%d.%m.%Y %a\""
+awk_date_pattern="\"%Y.%m.%d %a\""
 awk_time_pattern="\"%H:%M:%S\""
 today_fg_color="$colGreen500"
 
