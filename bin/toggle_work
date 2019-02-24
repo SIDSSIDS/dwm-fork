@@ -13,6 +13,7 @@ last_action=$(echo $last_line | awk -F ' ' '{print $1}')
 last_timestamp=$(echo $last_line | awk -F ' ' '{print $2}')
 
 get_worktime_info() {
+    decorate=$1
         gawk '
     function count_session_time(st,sp) {
         date=strftime('"$awk_date_pattern"', st)
@@ -35,14 +36,14 @@ get_worktime_info() {
         curdate=strftime('"$awk_date_pattern"', systime())
         curweekday=strftime("%a", systime())
         for (i in a) {
-            if (curdate == i) {
+            if ("'$decorate'" == "true" && curdate == i) {
                 print "today      " curweekday " ^fg('"$today_fg_color"')" strftime('"$awk_time_pattern"', a[i], 1) "^fg()"
             }
             else {
                 print i " " strftime('"$awk_time_pattern"', a[i], 1)
             }
         }
-    }' $track_file | head -10 | sort -r
+    }' $track_file | sort -r 
 }
 
 titleName="dzen-worktime"
@@ -53,10 +54,15 @@ if [[ "$1" == "status" ]]; then
 fi
 
 if [[ "$1" == "time" ]]; then
-    if [[ "$last_action" == "start" ]]; then
+    #if [[ "$last_action" == "start" ]]; then
         pkill -f "dzen2 -title-name $titleName"
-        get_worktime_info | dzen2 -title-name "$titleName" -fn "Liberation Mono:pixelsize=16:antialias=true:autohint=true" -fg "$colGrayFG" -bg "$colGrayBG" -p 5 -x "-650" -y "21" -l "9" -sa 'c' -w "230" -h "18" -ta 'c' -e 'onstart=uncollapse;button1=exit;button3=exit'
-    fi
+        get_worktime_info true | head -10 | dzen2 -title-name "$titleName" -fn "Liberation Mono:pixelsize=16:antialias=true:autohint=true" -fg "$colGrayFG" -bg "$colGrayBG" -p 5 -x "-650" -y "21" -l "9" -sa 'c' -w "230" -h "18" -ta 'c' -e 'onstart=uncollapse;button1=exit;button3=exit'
+    #fi
+    exit 0
+fi
+
+if [[ "$1" == "sum" ]]; then
+    get_worktime_info false
     exit 0
 fi
 
