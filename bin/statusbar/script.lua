@@ -20,9 +20,9 @@ colOrange500 = '\\#ff9800'
 colIndigo500 = '\\#3f51b5'
 colCyan500   = '\\#00bcd4'
 
-FontAwesome  = 'FontAwesome5Free-12:style=Solid'
-LiberBold    = 'Liberation Mono-14:style=Bold'
-PowerLine    = 'PowerlineSymbols-19:style=Medium'
+FontAwesome  = 'FontAwesome5Free-10:style=Solid'
+LiberBold    = 'Liberation Mono-12:style=Bold'
+PowerLine    = 'PowerlineSymbols-17:style=Medium'
 
 binPath      = '/home/sids/distributives/dwm/dwm-git/src/dwm/bin'
 
@@ -110,7 +110,7 @@ end
 function conky_top_text()
 
     -- date
-    local dateText     = '^fg('..bgBlue..')^fn('..PowerLine..')^fn()^fg()^bg('..bgBlue..') ' .. drawIcon('') .. ' ^ca(1,dzen-cal -a tr --y-indent 21 --x-indent 153)^fn('..LiberBold..')${time %a %d.%m.%Y}^fn()^ca()'
+    local dateText     = '^fg('..bgBlue..')^fn('..PowerLine..')^fn()^fg()^bg('..bgBlue..') ' .. drawIcon('') .. ' ^ca(1,dzen-cal -a tr --y-indent 21 --x-indent 163)^fn('..LiberBold..')${time %a %d.%m.%Y}^fn()^ca()'
     
     -- time
     local timeText     = '^ca(1,'..binPath..'/reminder all)'..drawIcon('') .. '^ca() ^ca(1,'..binPath..'/statusbar/clock.sh)^fn('..LiberBold..')${time %H:%M:%S}^fn()^ca()'

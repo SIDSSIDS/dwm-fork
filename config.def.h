@@ -22,7 +22,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "main", "web", "msg", "nb"  };
+static const char *tags[] = { "[main]", "[web]", "[msg]", "[nb]", "[5]", "[6]", "[7]", "[8]", "[9]" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -39,9 +39,12 @@ static const Rule rules[] = {
 	{ "Rocket.Chat",      NULL,       NULL,       1 << 2,       0,           -1 },
 	{ "Franz",            NULL,       NULL,       1 << 2,       0,           -1 },
 	{ "vlc",              NULL,       NULL,       0,            1,           -1 },
+	{ "mpv",              NULL,       NULL,       0,            1,           -1 },
 	{ "Gnome-calculator", NULL,       NULL,       0,            1,           -1 },
 	{ "Gnome-calendar",   NULL,       NULL,       0,            1,           -1 },
+	{ "conky",   NULL,       NULL,       0,            1,           -1 },
 	{ "Steam",            NULL,       NULL,       0,            1,           -1 },
+        { "Microsoft Teams - Preview",            NULL,       NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */

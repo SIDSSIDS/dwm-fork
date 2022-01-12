@@ -21,7 +21,7 @@ xpos=-$width
 ypos=0
 fgcolor="$colWhite"
 bgcolor="$colGrayBG"
-font="Liberation Mono:pixelsize=14:antialias=true:autohint=true"
+font="Liberation Mono:pixelsize=12:antialias=true:autohint=true"
 
 parameters="  -h $height" 
 parameters+=" -ta r -bg $bgcolor -fg $fgcolor"

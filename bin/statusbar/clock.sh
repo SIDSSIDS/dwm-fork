@@ -11,8 +11,8 @@ generated_output() {
 # parameters
 
 titleName="dzen-clock"
-font="Liberation Mono-14:style=Bold"
-width=153
+font="Liberation Mono-12:style=Bold"
+width=163
 lines=2
 xpos=-$width
 ypos=21
