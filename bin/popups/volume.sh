@@ -5,7 +5,7 @@ source $(dirname $0)/../colors
 level=$(pamixer --get-volume)
 muted=$(pamixer --get-mute)
 
-FontAwesome="^fn(FontAwesome5Free-32:style=Solid)"
+FontAwesome="^fn(FontAwesome6Free-32:style=Solid)"
 DefFont="^fn()"
 
 mute_sym=""

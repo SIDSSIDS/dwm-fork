@@ -5,7 +5,7 @@ file="$HOME/.alarms"
 source $(dirname $0)/colors
 
 awk_datetime_pattern="\"%H:%M:%S %a %d.%m.%Y\""
-font_awesome='FontAwesome5Free-12:style=Solid'
+font_awesome='FontAwesome6Free-12:style=Solid'
 font="Liberation Mono:pixelsize=16:antialias=true:autohint=true"
 height=21
 width=500

@@ -20,7 +20,7 @@ colOrange500 = '\\#ff9800'
 colIndigo500 = '\\#3f51b5'
 colCyan500   = '\\#00bcd4'
 
-FontAwesome  = 'FontAwesome5Free-10:style=Solid'
+FontAwesome  = 'FontAwesome6Free-10:style=Solid'
 LiberBold    = 'Liberation Mono-12:style=Bold'
 PowerLine    = 'PowerlineSymbols-17:style=Medium'
 
@@ -55,8 +55,8 @@ function getNetText()
     local vpnIcon      = drawIcon('', fgOrange, PowerLine)
 
     local tun_int    = conky_parse('${if_up tun0}tun0${endif}')
-    local lan_int    = conky_parse('${if_existing /sys/class/net/enp3s0f1/operstate up}enp3s0f1${endif}')
-    local wifi_int   = conky_parse('${if_existing /sys/class/net/wlp2s0/operstate up}wlp2s0${endif}')
+    local lan_int    = conky_parse('${if_existing /sys/class/net/enp3s0/operstate up}enp3s0${endif}')
+    local wifi_int   = conky_parse('${if_existing /sys/class/net/wlp5s0/operstate up}wlp5s0${endif}')
     local mobile_int = conky_parse('${if_up mobileusbmodem}mobileusbmodem${endif}')
     local net_icon   = ''
     local net_int    = ''

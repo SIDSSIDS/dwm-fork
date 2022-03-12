@@ -4,7 +4,7 @@ source $(dirname $0)/../colors
 
 state=$($(dirname $0)/../touchpad state)
 
-FontAwesome="^fn(FontAwesome5Free-74:style=Solid)"
+FontAwesome="^fn(FontAwesome6Free-74:style=Solid)"
 
 on_sym=""
 off_sym=""

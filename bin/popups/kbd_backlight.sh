@@ -7,7 +7,7 @@ source $(dirname $0)/../colors
 
 level=$(xbacklight -ctrl asus::kbd_backlight -get)
 
-FontAwesome="^fn(FontAwesome5Free-32:style=Solid)"
+FontAwesome="^fn(FontAwesome6Free-32:style=Solid)"
 DefFont="^fn()"
 
 kbd_sym=""
