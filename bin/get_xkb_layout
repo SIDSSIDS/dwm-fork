@@ -1,6 +1,6 @@
 #!/bin/bash
 
-code=$(xset -q | grep LED | egrep -o 'LED mask: +[0-9]+' | egrep -o '[0-9]+')
+code=$(xset -q | grep LED | grep -E -o 'LED mask: +[0-9]+' | grep -E -o '[0-9]+')
 
 layout_code="${code:4:1}"
 capslock_on=$(( ${code:7:1} % 2 ))

@@ -9,8 +9,8 @@ x_align=$4
 y_align=$5
 timeout=${6:-0}
 
-screenW=$(xdpyinfo | grep dimensions | egrep -o "[0-9]+x[0-9]+ pixels" | egrep -o "[0-9]+x[0-9]+" | sed "s/x.*//")
-screenH=$(xdpyinfo | grep dimensions | egrep -o "[0-9]+x[0-9]+ pixels" | egrep -o "[0-9]+x[0-9]+" | sed "s/.*x//")
+screenW=$(xdpyinfo | grep dimensions | grep -E -o "[0-9]+x[0-9]+ pixels" | grep -E -o "[0-9]+x[0-9]+" | sed "s/x.*//")
+screenH=$(xdpyinfo | grep dimensions | grep -E -o "[0-9]+x[0-9]+ pixels" | grep -E -o "[0-9]+x[0-9]+" | sed "s/.*x//")
 
 
 case "$x_align" in
